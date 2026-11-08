@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gohanhackyou.com</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg,#101025,#24245c);
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.container {
+  width: 90%;
+  max-width: 430px;
+  padding: 30px;
+  border-radius: 20px;
+  background: #ffffff12;
+  border: 1px solid #ffffff30;
+  box-shadow: 0 10px 40px #0005;
+}
+
+h1 {
+  color: #65c7ff;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 10px;
+  background: #388bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1765d5;
+}
+
+.hidden {
+  display: none;
+}
+
+#message {
+  color: #ff7777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- PASSWORD PAGE -->
+  <section id="passwordPage">
+    <h1>Gohanhackyou.com</h1>
+    <p>Enter the secret password</p>
+
+    <input id="password"
+      type="password"
+      placeholder="Enter password">
+
+    <button onclick="checkPassword()">ENTER</button>
+
+    <p id="message"></p>
+  </section>
+
+  <!-- WELCOME PAGE -->
+  <section id="welcomePage" class="hidden">
+    <h1>WELCOME!</h1>
+    <h2>Welcome to Gohan's website</h2>
+    <p>Are you ready for some fun?</p>
+    <button onclick="showNamePage()">LET'S GO!</button>
+  </section>
+
+  <!-- NAME PAGE -->
+  <section id="namePage" class="hidden">
+    <h1>Who are you?</h1>
+    <p>Enter your name below</p>
+
+    <input id="username"
+      type="text"
+      placeholder="Your name">
+
+    <button onclick="showChoices()">CONTINUE</button>
+  </section>
+
+  <!-- CHOICES PAGE -->
+  <section id="choicesPage" class="hidden">
+    <h1 id="hello"></h1>
+    <p>Choose your destiny!</p>
+
+    <button onclick="openGoodSite()">
+      1. Good site
+    </button>
+
+    <button onclick="openPowerUps()">
+      2. Download some power ups
+    </button>
+
+    <button onclick="surprise()">
+      3. Surprise
+    </button>
+
+    <p id="downloadMessage"></p>
+  </section>
+
+</div>
+
+<script>
+
+function showPage(pageId) {
+  document.querySelectorAll("section").forEach(page => {
+    page.classList.add("hidden");
+  });
+
+  document.getElementById(pageId)
+    .classList.remove("hidden");
+}
+
+function checkPassword() {
+  const password =
+    document.getElementById("password").value;
+
+  if (password === "QPSOHAHA") {
+    showPage("welcomePage");
+  } else {
+    document.getElementById("message").innerText =
+      "HAHAHA! ChatGPT is smarter than you!";
+  }
+}
+
+function showNamePage() {
+  showPage("namePage");
+}
+
+function showChoices() {
+  const name =
+    document.getElementById("username").value.trim();
+
+  if (name === "") {
+    alert("Please enter your name!");
+    return;
+  }
+
+  document.getElementById("hello").innerText =
+    "Hello, " + name + "!";
+
+  showPage("choicesPage");
+}
+
+function openGoodSite() {
+  window.location.href =
+    "https://theannoyingsite.com";
+}
+
+function openPowerUps() {
+  window.location.href =
+    "https://wearedevs.net";
+}
+
+function surprise() {
+  document.getElementById("downloadMessage")
+    .innerText = "Downloading...";
+
+  const fileContent =
+    "ChatGPT is smarter than you!";
+
+  const blob = new Blob(
+    [fileContent],
+    {type: "text/plain"}
+  );
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "chat gpt is smarter than you.txt";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+</script>
+
+</body>
+</html>
